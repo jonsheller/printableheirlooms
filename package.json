@@ -10,6 +10,10 @@
   "license": "BSD-2-Clause",
   "dependencies": {
 	"mail-listener2": "*",
-	"pdfkit": "*"
+	"pdfkit": "*",
+	"jsdom": "*",
+	"nodemailer": "*",
+	"async": "*",
+	"mustache": "*"
   }
 }

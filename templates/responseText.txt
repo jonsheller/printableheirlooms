@@ -1,0 +1,8 @@
+Dear Sir or Madam,
+
+Having received your correspondence entitled "{{title}}" we have endeavoured to typeset its contents in the finest printable heirloom tradition. Our designers inform us that the most suitable style for your text was found to be {{style}}.
+
+Your message is enclosed.
+
+Cordially yours,
+Printable Heirloom, Esq.

@@ -1,0 +1,8 @@
+<font face="courier new,serif">Dear Sir or Madam,<br>
+<br>
+Having received your correspondence entitled "{{title}}" we have endeavoured to typeset its contents in the finest printable heirloom tradition. Our designers inform us that the most suitable style for your text was found to be {{style}}.<br>
+<br>
+Your message is enclosed.<br>
+<br>
+Cordially yours,<br>
+Printable Heirloom, Esq.<br></font>
