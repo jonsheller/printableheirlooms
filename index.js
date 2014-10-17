@@ -2,6 +2,7 @@ var MailListener = require('mail-listener2');
 var NodeMailer = require("nodemailer");
 var Mustache = require("mustache");
 var fs = require('fs');
+var stylist = require('./styles/stylist');
 
 var html_template = fs.readFileSync("templates/responseHtml.txt", 'utf8');
 var text_template = fs.readFileSync("templates/responseText.txt", 'utf8');
@@ -33,25 +34,28 @@ mailListener.on("server:connected", function(){
 });
 
 mailListener.on("mail", function(mail){
+  console.log("Received mail from " + mail.from[0].name);
+  var styledMessage = stylist.styleMessage(mail);
+  
   var html = Mustache.to_html(html_template, {
 	title: mail.subject,
-	style: "Business"
+	style: styledMessage.style
   });
   
   var text = Mustache.render(text_template, {
 	title: mail.subject,
-	style: "Business"
+	style: styledMessage.style
   });
-  
-  console.log("Responding: " + html + "\n ------ or ------ \n" + text);
   
   transporter.sendMail({
 	to: mail.from,
 	from: process.env["EMAIL_USERNAME"],
 	subject: "Your Printable Heirloom inquiry",
 	html: html,
-	text: text
+	text: text,
+	attachments: [{filename: "message.pdf", content: styledMessage.pdf}]
   });
+  console.log("Responded.");
 });
 
 mailListener.start();

@@ -11,9 +11,11 @@
   "dependencies": {
 	"mail-listener2": "*",
 	"pdfkit": "*",
-	"jsdom": "*",
+	"htmlparser": "*",
 	"nodemailer": "*",
 	"async": "*",
-	"mustache": "*"
+	"mustache": "*",
+	"temp": "*",
+	"html-entities": "*"
   }
 }
