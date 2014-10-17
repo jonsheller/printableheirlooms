@@ -1,0 +1,15 @@
+{
+  "name": "PrintableHeirlooms",
+  "version": "0.1.0",
+  "description": "Convert emails into heirlooms for future generations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jon Sheller",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+	"mail-listener": "*",
+	"pdfkit": "*"
+  }
+}
