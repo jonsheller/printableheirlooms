@@ -34,7 +34,6 @@ if (process.env["WELL_KNOWN_SERVICE"]) {
 	var transporter = NodeMailer.createTransport({
 		"host": process.env["SMTP_HOST"],
         "port": process.env["SMTP_PORT"] || 587,
-        "secure": true,
         "authMethod": "LOGIN",
 		"auth": {
 			user: process.env["EMAIL_USERNAME"],
@@ -49,6 +48,35 @@ mailListener.on("server:connected", function(){
 
 mailListener.on("mail", function(mail){
   console.log("Received mail from " + mail.from[0].name);
+  enqueue(mail);
+});
+
+mailListener.start();
+
+var mailQueue = [];
+var timerRunning = false;
+
+function enqueue(mail) {
+	mailQueue.push(mail);
+	if (!timerRunning) {
+		setTimeout(dequeue, 10 * 1000);
+		timerRunning = true;
+	}
+}
+
+function dequeue() {
+	timerRunning = false;
+	var mail = mailQueue.shift();
+	if (mailQueue.length) {
+		setTimeout(dequeue, 10 * 1000);
+		timerRunning = true;
+	}
+	
+	processMail(mail);
+}
+
+function processMail(mail) {
+  console.log("Processing mail from " + mail.from[0].name);
   var styledMessage = stylist.styleMessage(mail);
   
   var html = Mustache.to_html(html_template, {
@@ -70,6 +98,4 @@ mailListener.on("mail", function(mail){
 	attachments: [{filename: "message.pdf", content: styledMessage.pdf}]
   });
   console.log("Responded.");
-});
-
-mailListener.start();
+}
