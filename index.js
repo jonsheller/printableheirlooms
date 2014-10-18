@@ -21,13 +21,27 @@ var mailListener = new MailListener({
   fetchUnreadOnStart: true // use it only if you want to get all unread email on lib start. Default is `false`
 });
 
-var transporter = NodeMailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env["EMAIL_USERNAME"],
-        pass: process.env["EMAIL_PASSWORD"]
-    }
-})
+if (process.env["WELL_KNOWN_SERVICE"]) {
+	var transporter = NodeMailer.createTransport({
+		service: process.env["WELL_KNOWN_SERVICE"],
+		auth: {
+			user: process.env["EMAIL_USERNAME"],
+			pass: process.env["EMAIL_PASSWORD"]
+		}
+	});
+} else {
+	console.log("Using settings");
+	var transporter = NodeMailer.createTransport({
+		"host": process.env["SMTP_HOST"],
+        "port": process.env["SMTP_PORT"] || 587,
+        "secure": true,
+        "authMethod": "LOGIN",
+		"auth": {
+			user: process.env["EMAIL_USERNAME"],
+			pass: process.env["EMAIL_PASSWORD"]
+		}
+	});
+}
 
 mailListener.on("server:connected", function(){
   console.log("imapConnected");

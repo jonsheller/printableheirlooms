@@ -29,3 +29,7 @@ node_modules
 
 # Avoid checking in fonts that we don't own.
 *.ttf
+
+# Don't check-in login information
+set_env_1and1.cmd
+set_env_gmail.cmd
